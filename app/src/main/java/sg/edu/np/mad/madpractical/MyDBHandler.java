@@ -85,7 +85,8 @@ public class MyDBHandler extends SQLiteOpenHelper {
                 Integer follow = cursor.getInt(cursor.getColumnIndex(COLUMN_FOLLOWED));
                 if (follow == 1) {
                     isFollowed = true;
-                } else {
+                }
+                else {
                     isFollowed = false;
                 }
                 User user = new User(name, desc, id, isFollowed);
@@ -113,4 +114,24 @@ public class MyDBHandler extends SQLiteOpenHelper {
         db.close();
         return rowCount;
     }
+
+    public boolean updateUser(User user){
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        int follow;
+        boolean isFollowed = user.isFollowed();
+        if (isFollowed) {
+            follow = 1;
+        }
+        else {
+            follow = 0;
+        }
+        contentValues.put(COLUMN_FOLLOWED, follow);
+        db.update(TABLE_USER, contentValues, COLUMN_ID + " = ? " ,
+                    new String[]{Integer.toString(user.getId())}
+                );
+
+        return true;
+    }
+
 }

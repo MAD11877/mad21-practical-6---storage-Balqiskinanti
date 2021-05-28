@@ -58,9 +58,7 @@ public class ListAdapter extends RecyclerView.Adapter<ListViewHolder>{
                         Intent viewMain = new Intent(myContext, MainActivity.class);
 
                         Bundle extras = new Bundle();
-                        extras.putString("Name", userData.getName());
-                        extras.putString("Description", userData.getDescription());
-                        extras.putBoolean("IsFollowed", userData.isFollowed());
+                        extras.putInt("_id", userData.getId());
                         viewMain.putExtras(extras);
 
                         myContext.startActivity(viewMain);
